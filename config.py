@@ -2,7 +2,9 @@ import os
 import subprocess
 import screens
 import keybinds
-from libqtile.config import Key, Screen, Group, Drag, Click
+import groups
+import platform
+from libqtile.config import Key, Screen, Group, Drag, Click, ScratchPad, DropDown
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
@@ -13,10 +15,10 @@ def autostart():
    subprocess.call([home])
 
 mod = "mod4"
-
+border_color = '339966'
 keys = keybinds.init_keys(mod)
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = groups.init_groups(platform.node(), border_color)
 
 for i in groups:
     keys.extend([
@@ -29,24 +31,21 @@ for i in groups:
         # # mod1 + shift + letter of group = move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
-
+groups.append(ScratchPad("scratchpad", [
+   # define a drop down terminal.
+   # it is placed in the upper third of selfcreen by default.
+   DropDown("term", "xterm", height=0.5),
+   DropDown("org", "emacs", height=0.5),
+]))
 layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2),
-    # Try more layouts by unleashing below layouts.
-    #layout.Bsp(),
-    # layout.Columns(),
-    # layout.Matrix(),
-    layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.Stack(num_stacks=2,border_focus=border_color, border_width=2),
+    layout.MonadTall(border_focus=border_color, border_width=2),
+    layout.MonadWide(border_focus=border_color, border_width=2),
+    layout.TreeTab(border_focus=border_color, border_width=2),
 ]
 
-screens = screens.init_screens()
+screens = screens.init_screens(border_color)
 
 # Drag floating layouts.
 mouse = [
@@ -77,4 +76,4 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+#focus_on_window_activation = "smart"

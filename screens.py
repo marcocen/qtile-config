@@ -4,8 +4,7 @@ import platform
 import re
 
 
-def init_screens():
-    inoffensive_green = '339966'
+def init_screens(border_color):
     hostname = platform.node()
     widget_defaults = dict(
         font = 'Consolas',
@@ -17,7 +16,7 @@ def init_screens():
             Screen(bottom = bar.Bar([
                 widget.GroupBox(
                     urgent_alert_method='text',
-                    this_current_screen_border=inoffensive_green,
+                    this_current_screen_border=border_color,
                     disable_drag=True,
                     **widget_defaults
                 ),
@@ -29,7 +28,7 @@ def init_screens():
             Screen(bottom = bar.Bar([
                 widget.GroupBox(
                     urgent_alert_method='text',
-                    this_current_screen_border=inoffensive_green,
+                    this_current_screen_border=border_color,
                     disable_drag=True,
                     **widget_defaults
                 ),
@@ -42,7 +41,7 @@ def init_screens():
             Screen(bottom = bar.Bar([
                 widget.GroupBox(
                     urgent_alert_method='text',
-                    this_current_screen_border=inoffensive_green,
+                    this_current_screen_border=border_color,
                     disable_drag=True,
                     **widget_defaults
                 ),
@@ -57,7 +56,7 @@ def init_screens():
             Screen(bottom = bar.Bar([
                 widget.GroupBox(
                     urgent_alert_method='text',
-                    this_current_screen_border=inoffensive_green,
+                    this_current_screen_border=border_color,
                     disable_drag=True,
                     **widget_defaults
                 ),
@@ -70,7 +69,7 @@ def init_screens():
                 widget.GroupBox(
                     urgent_alert_method='text',
                     disable_drag=True,
-                    this_current_screen_border=inoffensive_green,
+                    this_current_screen_border=border_color,
                     **widget_defaults
                 ),
                 widget.Spacer(),

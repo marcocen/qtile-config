@@ -46,5 +46,9 @@ def init_keys(mod):
 
         # Lock screen
         Key([mod], "l", lazy.spawn("xscreensaver-command -lock")),
+
+        # DropDown
+        Key([],'F11',lazy.group['scratchpad'].dropdown_toggle('term')),
+        Key([],'F12',lazy.group['scratchpad'].dropdown_toggle('org')),
     ]
     return keys
